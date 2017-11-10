@@ -24,6 +24,7 @@ func main() {
 	out, err := ec2svc.DescribeInstances(nil)
 	exitIfError(err)
 
+	fmt.Print("\033[2K")
 	header := []string{
 		"Name",
 		"InstanceId",
@@ -33,9 +34,18 @@ func main() {
 		"PublicIP",
 		"Status",
 	}
-	var data [][]string
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader(header)
+	table.AppendBulk(dataFromReservations(out.Reservations))
+	table.SetBorder(false)
+	table.SetCenterSeparator("")
+	table.SetColumnSeparator("")
+	table.Render()
+}
 
-	for _, r := range out.Reservations {
+func dataFromReservations(reservations []*ec2.Reservation) [][]string {
+	var data [][]string
+	for _, r := range reservations {
 		for _, i := range r.Instances {
 			var tagName string
 			for _, t := range i.Tags {
@@ -67,15 +77,7 @@ func main() {
 			})
 		}
 	}
-
-	fmt.Print("\033[2K")
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader(header)
-	table.AppendBulk(data)
-	table.SetBorder(false)
-	table.SetCenterSeparator("")
-	table.SetColumnSeparator("")
-	table.Render()
+	return data
 }
 
 func spinner(delay time.Duration) {
