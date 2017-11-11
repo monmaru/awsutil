@@ -19,7 +19,7 @@ func main() {
 	app.Run(os.Args)
 }
 
-var regionFlags = []cli.Flag{
+var commonFlags = []cli.Flag{
 	cli.StringFlag{
 		Name:  "region, r",
 		Value: "ap-northeast-1",
@@ -32,21 +32,21 @@ var commands = []cli.Command{
 		Name:   "list",
 		Usage:  "List all EC2 instance infomation",
 		Action: cmd.ListInstances,
-		Flags:  regionFlags,
+		Flags:  commonFlags,
 	},
 	{
 		Name:      "start",
 		Usage:     "Start EC2 instances",
 		Action:    cmd.StartInstances,
 		ArgsUsage: "EC2 instance id listt",
-		Flags:     regionFlags,
+		Flags:     commonFlags,
 	},
 	{
 		Name:      "stop",
 		Usage:     "Stop EC2 instances",
 		Action:    cmd.StopInstances,
 		ArgsUsage: "EC2 instance id listt",
-		Flags:     regionFlags,
+		Flags:     commonFlags,
 	},
 }
 

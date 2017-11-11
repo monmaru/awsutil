@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -31,5 +33,23 @@ func idFromArgs(c *cli.Context) []*string {
 func exitIfError(err error) {
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func ask4confirm() bool {
+	var s string
+	_, err := fmt.Scanln(&s)
+	if err != nil {
+		log.Fatal(err)
+	}
+	s = strings.ToLower(strings.TrimSpace(s))
+
+	if s == "y" {
+		return true
+	} else if s == "n" {
+		return false
+	} else {
+		fmt.Println("Please type y or n and then press enter:")
+		return ask4confirm()
 	}
 }
