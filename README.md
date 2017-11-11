@@ -1,4 +1,4 @@
-# ec2stat
+# ec2
 
 simple cli tool for Amazon EC2
 
