@@ -10,7 +10,7 @@ import (
 
 // ListInstances lists all EC2 instance infomation
 func ListInstances(c *cli.Context) {
-	ec2svc, err := createEC2Service(c.String("region"))
+	ec2svc, err := createEC2Service(region(c))
 	exitIfError(err)
 
 	out, err := ec2svc.DescribeInstances(nil)

@@ -19,7 +19,7 @@ func StartInstances(c *cli.Context) {
 		return
 	}
 
-	ec2svc, err := createEC2Service(c.String("region"))
+	ec2svc, err := createEC2Service(region(c))
 	exitIfError(err)
 
 	instances := idFromArgs(c)

@@ -30,6 +30,10 @@ func idFromArgs(c *cli.Context) []*string {
 	return instances
 }
 
+func region(c *cli.Context) string {
+	return c.String("region")
+}
+
 func exitIfError(err error) {
 	if err != nil {
 		log.Fatal(err)
