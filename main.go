@@ -43,14 +43,14 @@ var commands = []cli.Command{
 		Name:      "start",
 		Usage:     "Start EC2 instances",
 		Action:    cmd.StartInstances,
-		ArgsUsage: "EC2 instance id listt",
+		ArgsUsage: "EC2 instance id list",
 		Flags:     commonFlags,
 	},
 	{
 		Name:      "stop",
 		Usage:     "Stop EC2 instances",
 		Action:    cmd.StopInstances,
-		ArgsUsage: "EC2 instance id listt",
+		ArgsUsage: "EC2 instance id list",
 		Flags:     commonFlags,
 	},
 }
