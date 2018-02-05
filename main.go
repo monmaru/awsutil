@@ -25,6 +25,11 @@ var commonFlags = []cli.Flag{
 		Value: "ap-northeast-1",
 		Usage: "Specify the target AWS region.",
 	},
+	cli.StringFlag{
+		Name:  "profile, p",
+		Value: "default",
+		Usage: "Specify the profile name.",
+	},
 }
 
 var commands = []cli.Command{

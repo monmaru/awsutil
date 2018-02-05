@@ -6,18 +6,22 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/urfave/cli"
 )
 
-func createEC2Service(region string) (*ec2.EC2, error) {
+func createEC2Service(region, profile string) (*ec2.EC2, error) {
 	session, err := session.NewSession()
 	if err != nil {
 		return nil, err
-
 	}
-	conf := &aws.Config{Region: aws.String(region)}
+
+	conf := &aws.Config{
+		Region:      aws.String(region),
+		Credentials: credentials.NewSharedCredentials("", profile),
+	}
 	return ec2.New(session, conf), nil
 }
 
@@ -32,6 +36,10 @@ func idFromArgs(c *cli.Context) []*string {
 
 func region(c *cli.Context) string {
 	return c.String("region")
+}
+
+func profile(c *cli.Context) string {
+	return c.String("profile")
 }
 
 func exitIfError(err error) {
