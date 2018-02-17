@@ -18,7 +18,7 @@ func ListInstances(c *cli.Context) {
 
 	header := []string{
 		"Name",
-		"InstanceId",
+		"InstanceID",
 		"InstanceType",
 		"AZ",
 		"PrivateIP",
