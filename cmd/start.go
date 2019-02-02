@@ -15,7 +15,7 @@ func StartInstance(c *cli.Context) {
 	out, err := ec2svc.DescribeInstances(nil)
 	exitIfError(err)
 
-	//	https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
+	// https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 	instances := instancesByStatus(out.Reservations, "stopped")
 	if len(instances) == 0 {
 		fmt.Println("There are no stopped instances.")
