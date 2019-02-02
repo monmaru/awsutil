@@ -11,7 +11,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "ec2"
-	app.Version = "1.0"
+	app.Version = "1.1"
 	app.Author = "monmaru"
 	app.Description = "simple cli tool for Amazon EC2"
 	app.Commands = commands
@@ -40,18 +40,16 @@ var commands = []cli.Command{
 		Flags:  commonFlags,
 	},
 	{
-		Name:      "start",
-		Usage:     "Start EC2 instances",
-		Action:    cmd.StartInstances,
-		ArgsUsage: "EC2 instance id list",
-		Flags:     commonFlags,
+		Name:   "start",
+		Usage:  "Start EC2 instance",
+		Action: cmd.StartInstance,
+		Flags:  commonFlags,
 	},
 	{
-		Name:      "stop",
-		Usage:     "Stop EC2 instances",
-		Action:    cmd.StopInstances,
-		ArgsUsage: "EC2 instance id list",
-		Flags:     commonFlags,
+		Name:   "stop",
+		Usage:  "Stop EC2 instance",
+		Action: cmd.StopInstance,
+		Flags:  commonFlags,
 	},
 }
 

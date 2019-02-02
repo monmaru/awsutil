@@ -11,7 +11,7 @@ USAGE:
    ec2 [global options] command [command options] [arguments...]
 
 VERSION:
-   1.0
+   1.1
 
 DESCRIPTION:
    simple cli tool for Amazon EC2
@@ -21,8 +21,8 @@ AUTHOR:
 
 COMMANDS:
      list     List all EC2 instance infomation
-     start    Start EC2 instances
-     stop     Stop EC2 instances
+     start    Start EC2 instance
+     stop     Stop EC2 instance
      help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:

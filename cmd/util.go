@@ -25,13 +25,27 @@ func createEC2Service(region, profile string) (*ec2.EC2, error) {
 	return ec2.New(session, conf), nil
 }
 
-func idFromArgs(c *cli.Context) []*string {
-	var instances []*string
-	for _, arg := range c.Args() {
-		id := string(arg)
-		instances = append(instances, &id)
+func instancesByStatus(reservations []*ec2.Reservation, status string) []*ec2.Instance {
+	var is []*ec2.Instance
+	for _, r := range reservations {
+		for _, i := range r.Instances {
+			if *i.State.Name == status {
+				is = append(is, i)
+			}
+		}
 	}
-	return instances
+	return is
+}
+
+func findIDByName(instances []*ec2.Instance, name string) *string {
+	for _, i := range instances {
+		for _, t := range i.Tags {
+			if *t.Key == "Name" && name == *t.Value {
+				return i.InstanceId
+			}
+		}
+	}
+	return nil
 }
 
 func region(c *cli.Context) string {
