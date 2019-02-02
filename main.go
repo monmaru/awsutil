@@ -51,6 +51,20 @@ var commands = []cli.Command{
 		Action: cmd.StopInstance,
 		Flags:  commonFlags,
 	},
+	{
+		Name:      "startmulti",
+		Usage:     "Start multiple EC2 instances",
+		Action:    cmd.StartMultipleInstances,
+		ArgsUsage: "EC2 instance id list",
+		Flags:     commonFlags,
+	},
+	{
+		Name:      "stopmulti",
+		Usage:     "Stop multiple EC2 instances",
+		Action:    cmd.StopMultipleInstances,
+		ArgsUsage: "EC2 instance id list",
+		Flags:     commonFlags,
+	},
 }
 
 func usage(c *cli.Context, command string) {

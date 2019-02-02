@@ -48,6 +48,15 @@ func findIDByName(instances []*ec2.Instance, name string) *string {
 	return nil
 }
 
+func idFromArgs(c *cli.Context) []*string {
+	var ids []*string
+	for _, arg := range c.Args() {
+		id := string(arg)
+		ids = append(ids, &id)
+	}
+	return ids
+}
+
 func region(c *cli.Context) string {
 	return c.String("region")
 }

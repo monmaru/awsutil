@@ -20,10 +20,12 @@ AUTHOR:
    monmaru
 
 COMMANDS:
-     list     List all EC2 instance infomation
-     start    Start EC2 instance
-     stop     Stop EC2 instance
-     help, h  Shows a list of commands or help for one command
+     list        List all EC2 instance infomation
+     start       Start EC2 instance
+     stop        Stop EC2 instance
+     startmulti  Start multiple EC2 instances
+     stopmulti   Stop multiple EC2 instances
+     help, h     Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --help, -h     show help
