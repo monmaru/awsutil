@@ -1,6 +1,7 @@
 module github.com/monmaru/ec2
 
 require (
+	github.com/aws/aws-lambda-go v1.8.2
 	github.com/aws/aws-sdk-go v1.16.26
 	github.com/c-bata/go-prompt v0.2.3
 	github.com/mattn/go-runewidth v0.0.4 // indirect
