@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 )
 
 var jstLoc *time.Location
@@ -24,23 +25,32 @@ func main() {
 }
 
 func handler(ctx context.Context) (string, error) {
-	if err := run(); err != nil {
+	ec2svc, err := initEC2service()
+	if err != nil {
+		return "initialize error", err
+	}
+
+	if err := run(ec2svc); err != nil {
 		log.Printf("error: %+v\n", err)
-		return "error", err
+		return "run error", err
 	}
 	return "success", nil
 }
 
-func run() error {
-	now := time.Now().In(jstLoc)
-	log.Printf("Now: %s", now.String())
+func initEC2service() (ec2iface.EC2API, error) {
 	session, err := session.NewSession()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	conf := &aws.Config{Region: aws.String("ap-northeast-1")}
 	ec2svc := ec2.New(session, conf)
+	return ec2svc, nil
+}
+
+func run(ec2svc ec2iface.EC2API) error {
+	now := time.Now().In(jstLoc)
+	log.Printf("Now: %s", now.String())
 
 	// List
 	out, err := ec2svc.DescribeInstances(nil)
@@ -72,7 +82,7 @@ func weekday(t time.Time) bool {
 	}
 }
 
-func startInstances(svc *ec2.EC2, reservations []*ec2.Reservation, now time.Time) error {
+func startInstances(svc ec2iface.EC2API, reservations []*ec2.Reservation, now time.Time) error {
 	log.Println("startInstances called")
 	const tag = "PowerOn"
 	var ids []*string
@@ -100,7 +110,7 @@ func startInstances(svc *ec2.EC2, reservations []*ec2.Reservation, now time.Time
 	return nil
 }
 
-func stopInstances(svc *ec2.EC2, reservations []*ec2.Reservation, now time.Time) error {
+func stopInstances(svc ec2iface.EC2API, reservations []*ec2.Reservation, now time.Time) error {
 	log.Println("stopInstances called")
 	const tag = "PowerOff"
 	var ids []*string

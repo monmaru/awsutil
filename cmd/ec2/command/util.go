@@ -9,10 +9,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 	"github.com/urfave/cli"
 )
 
-func createEC2Service(region, profile string) (*ec2.EC2, error) {
+func createEC2Service(region, profile string) (ec2iface.EC2API, error) {
 	session, err := session.NewSession()
 	if err != nil {
 		return nil, err
